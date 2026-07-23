@@ -1,6 +1,6 @@
 package model.entities;
 
-public enum statusOrdem {
+public enum StatusOrdem {
 
     ABERTO,
     EM_ANDAMENTO,

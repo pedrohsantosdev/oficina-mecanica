@@ -1,10 +1,9 @@
 package application;
 
-import db.DB;
 import model.entities.Cliente;
 import model.entities.OrdemServico;
 import model.entities.Veiculo;
-import model.entities.statusOrdem;
+import model.entities.StatusOrdem;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -30,7 +29,7 @@ public class Program {
         System.out.println();
 
         OrdemServico ordem = new OrdemServico(1, veiculo, LocalDate.parse("20/07/2026", dtf), LocalDate.parse("22/07/2026", dtf),
-                "Motor falhando", "Manutenção no motor", 500.00, statusOrdem.EM_ANDAMENTO);
+                "Motor falhando", "Manutenção no motor", 500.00, StatusOrdem.EM_ANDAMENTO);
 
         System.out.println(ordem);
     }

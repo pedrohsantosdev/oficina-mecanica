@@ -1,10 +1,11 @@
 package model.entities;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
-public class OrdemServico {
+public class OrdemServico implements Serializable {
 
     private DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
@@ -15,12 +16,12 @@ public class OrdemServico {
     private String problema;
     private String diagnostico;
     private Double valor;
-    private statusOrdem statusOrdem;
+    private StatusOrdem statusOrdem;
 
     public OrdemServico() {
     }
 
-    public OrdemServico(Integer id, Veiculo veiculo, LocalDate data_entrada, LocalDate data_saida, String problema, String diagnostico, Double valor, statusOrdem statusOrdem) {
+    public OrdemServico(Integer id, Veiculo veiculo, LocalDate data_entrada, LocalDate data_saida, String problema, String diagnostico, Double valor, StatusOrdem statusOrdem) {
         this.id = id;
         this.veiculo = veiculo;
         this.data_entrada = data_entrada;
@@ -87,11 +88,11 @@ public class OrdemServico {
         this.valor = valor;
     }
 
-    public statusOrdem getStatusOrdem() {
+    public StatusOrdem getStatusOrdem() {
         return statusOrdem;
     }
 
-    public void setStatusOrdem(statusOrdem statusOrdem) {
+    public void setStatusOrdem(StatusOrdem statusOrdem) {
         this.statusOrdem = statusOrdem;
     }
 
