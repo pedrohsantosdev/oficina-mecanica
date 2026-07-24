@@ -6,6 +6,7 @@ import model.dao.ClienteDao;
 import model.entities.Cliente;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ClienteDaoJDBC implements ClienteDao {
@@ -153,7 +154,37 @@ public class ClienteDaoJDBC implements ClienteDao {
 
     @Override
     public List<Cliente> findAll() {
-        return List.of();
+
+        PreparedStatement st = null;
+        ResultSet rs = null;
+
+        try {
+
+            st = conn.prepareStatement(
+                    "SELECT * FROM cliente " +
+                            "ORDER BY nome"
+            );
+
+            rs = st.executeQuery();
+
+            List<Cliente> list = new ArrayList<>();
+
+            while (rs.next()) {
+
+                Cliente c = iniciateCliente(rs);
+                list.add(c);
+
+            }
+
+            return list;
+        }
+        catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        }
+        finally {
+            DB.closeStatement(st);
+            DB.closeResultSet(rs);
+        }
     }
 
     private Cliente iniciateCliente(ResultSet rs) throws SQLException {

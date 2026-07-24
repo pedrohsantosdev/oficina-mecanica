@@ -9,6 +9,7 @@ import model.entities.StatusOrdem;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 public class Program {
 
@@ -16,9 +17,9 @@ public class Program {
 
         ClienteDao clienteDao = DaoFactory.createClienteDao();
 
-        Cliente cliente = clienteDao.findById(1);
+        List<Cliente> list = clienteDao.findAll();
 
-        System.out.println(cliente);
+        System.out.println(list);
 
     }
 }
