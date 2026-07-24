@@ -50,7 +50,7 @@ public class ClienteDaoJDBC implements ClienteDao {
                 DB.closeResultSet(rs);
             }
             else {
-                throw new DbException("Erro na inserção do cliente");
+                throw new DbException("Erro na inserção do cliente!");
             }
         }
         catch (SQLException e) {
@@ -64,6 +64,31 @@ public class ClienteDaoJDBC implements ClienteDao {
     @Override
     public void update(Cliente cliente) {
 
+        PreparedStatement st = null;
+
+        try {
+
+            st = conn.prepareStatement(
+                    "UPDATE cliente " +
+                            "SET " +
+                            "nome = ?, cpf = ?, telefone = ?, email = ? " +
+                            "WHERE id = ?"
+            );
+
+            st.setString(1, cliente.getNome());
+            st.setString(2, cliente.getCpf());
+            st.setString(3, cliente.getTelefone());
+            st.setString(4, cliente.getEmail());
+            st.setInt(5, cliente.getId());
+
+            st.executeUpdate();
+        }
+        catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        }
+        finally {
+            DB.closeStatement(st);
+        }
     }
 
     @Override

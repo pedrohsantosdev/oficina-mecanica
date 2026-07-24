@@ -14,14 +14,14 @@ public class Program {
 
     public static void main(String[] args) {
 
-        Cliente cliente = new Cliente(null, "Pedro", "12345678911", "(33)99999-9988",
+        Cliente cliente = new Cliente(1, "Pedro", "12345678911", "(33)99999-9988",
                 "pedro@gmail.com");
 
         ClienteDao clienteDao = DaoFactory.createClienteDao();
 
-        clienteDao.insert(cliente);
-
-        System.out.println("Inserido com sucesso! Id: " + cliente.getId());
+        cliente.setNome("Pedro Henrique");
+        clienteDao.update(cliente);
+        System.out.println("Atualizado com sucesso!");
 
     }
 }
