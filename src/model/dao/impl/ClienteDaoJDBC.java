@@ -1,9 +1,11 @@
 package model.dao.impl;
 
+import db.DB;
+import db.DbException;
 import model.dao.ClienteDao;
 import model.entities.Cliente;
 
-import java.sql.Connection;
+import java.sql.*;
 import java.util.List;
 
 public class ClienteDaoJDBC implements ClienteDao {
@@ -17,6 +19,46 @@ public class ClienteDaoJDBC implements ClienteDao {
     @Override
     public void insert(Cliente cliente) {
 
+        PreparedStatement st = null;
+
+        try {
+
+            st = conn.prepareStatement(
+                    "INSERT INTO cliente " +
+                            "(nome, cpf, telefone, email) " +
+                            "VALUES " +
+                            "(?, ?, ?, ?)",
+                    Statement.RETURN_GENERATED_KEYS
+
+            );
+
+            st.setString(1, cliente.getNome());
+            st.setString(2, cliente.getCpf());
+            st.setString(3, cliente.getTelefone());
+            st.setString(4, cliente.getEmail());
+
+            int rowsAffected = st.executeUpdate();
+
+            if(rowsAffected > 0) {
+                ResultSet rs = st.getGeneratedKeys();
+
+                if(rs.next()) {
+                    int id = rs.getInt(1);
+                    cliente.setId(id);
+                }
+
+                DB.closeResultSet(rs);
+            }
+            else {
+                throw new DbException("Erro na inserção do cliente");
+            }
+        }
+        catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        }
+        finally {
+            DB.closeStatement(st);
+        }
     }
 
     @Override
