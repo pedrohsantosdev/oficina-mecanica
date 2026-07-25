@@ -257,7 +257,40 @@ public class VeiculoDaoJDBC implements VeiculoDao {
 
     @Override
     public List<Veiculo> findAll() {
-        return List.of();
+
+        PreparedStatement st = null;
+        ResultSet rs = null;
+
+        try {
+
+            st = conn.prepareStatement(
+                    "SELECT v.*, c.nome, c.cpf, c.telefone, c.email " +
+                            "FROM veiculo v " +
+                            "JOIN cliente c " +
+                            "ON v.cliente_id = c.id"
+            );
+
+            rs = st.executeQuery();
+
+            List<Veiculo> list = new ArrayList<>();
+
+            while (rs.next()) {
+
+                Cliente cliente = instaciarCliente(rs);
+                Veiculo veiculo = instaciarVeiculo(rs, cliente);
+                list.add(veiculo);
+
+            }
+
+            return list;
+        }
+        catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        }
+        finally {
+            DB.closeStatement(st);
+            DB.closeResultSet(rs);
+        }
     }
 
     private Cliente instaciarCliente(ResultSet rs) throws SQLException {

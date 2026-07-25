@@ -18,11 +18,8 @@ public class Program {
     public static void main(String[] args) {
 
         VeiculoDao veiculoDao = DaoFactory.createVeiuloDao();
-        ClienteDao clienteDao = DaoFactory.createClienteDao();
 
-        Cliente cliente = clienteDao.findById(1);
-
-        List<Veiculo> list = veiculoDao.findByCliente(cliente);
+        List<Veiculo> list = veiculoDao.findAll();
 
         System.out.println(list);
 
