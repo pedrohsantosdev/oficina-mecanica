@@ -103,6 +103,25 @@ public class VeiculoDaoJDBC implements VeiculoDao {
     @Override
     public void deleteById(Integer id) {
 
+        PreparedStatement st = null;
+
+        try {
+
+            st = conn.prepareStatement(
+                    "DELETE FROM veiculo " +
+                            "WHERE id = ?"
+            );
+
+            st.setInt(1, id);
+
+            st.executeUpdate();
+        }
+        catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        }
+        finally {
+            DB.closeStatement(st);
+        }
     }
 
     @Override

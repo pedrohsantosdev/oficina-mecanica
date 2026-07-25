@@ -16,22 +16,18 @@ public class Program {
 
     public static void main(String[] args) {
 
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-
-        ClienteDao clienteDao = DaoFactory.createClienteDao();
         VeiculoDao veiculoDao = DaoFactory.createVeiuloDao();
 
         Cliente cliente = new Cliente(1, "Pedro", "12345678911", "(33)99999-9988",
                 "pedro@gmail.com");
 
-        Veiculo veiculo = new Veiculo(1, cliente, "BBR1B23", "Toyota", "Hilux SRX", 2024,
+        Veiculo veiculo = new Veiculo(2, cliente, "BBR1B23", "Toyota", "Hilux SRX", 2024,
                 "Branco", 100000);
 
-        veiculo.setQuilometragem(80000);
+        veiculoDao.deleteById(2);
 
-        System.out.println("Atualização concluída com sucesso!");
+        System.out.println("Exclusão completa com sucesso!");
 
-        veiculoDao.update(veiculo);
 
     }
 }
