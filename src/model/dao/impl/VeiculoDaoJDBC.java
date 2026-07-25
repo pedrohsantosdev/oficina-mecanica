@@ -7,7 +7,10 @@ import model.entities.Cliente;
 import model.entities.Veiculo;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class VeiculoDaoJDBC implements VeiculoDao {
 
@@ -203,7 +206,53 @@ public class VeiculoDaoJDBC implements VeiculoDao {
 
     @Override
     public List<Veiculo> findByCliente(Cliente cliente) {
-        return List.of();
+
+        PreparedStatement st = null;
+        ResultSet rs = null;
+
+        try {
+
+            st = conn.prepareStatement(
+                    "SELECT v.*, c.nome, c.cpf, c.telefone, c.email " +
+                            "FROM veiculo v " +
+                            "JOIN cliente c "+
+                            "ON v.cliente_id = c.id " +
+                            "WHERE v.cliente_id = ?"
+            );
+
+            st.setInt(1, cliente.getId());
+
+            rs = st.executeQuery();
+
+            List<Veiculo> list = new ArrayList<>();
+            Map<Integer, Cliente> map = new HashMap<>();
+
+            while (rs.next()) {
+
+                Cliente c = map.get(rs.getInt("cliente_id"));
+
+                if(c == null) {
+
+                    c = instaciarCliente(rs);
+                    map.put(rs.getInt("cliente_id"), c);
+
+                }
+
+                Veiculo v = instaciarVeiculo(rs, c);
+                list.add(v);
+            }
+
+            return list;
+
+        }
+        catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        }
+        finally {
+            DB.closeStatement(st);
+            DB.closeResultSet(rs);
+        }
+
     }
 
     @Override

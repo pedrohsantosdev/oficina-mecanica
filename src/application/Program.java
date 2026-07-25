@@ -17,17 +17,14 @@ public class Program {
 
     public static void main(String[] args) {
 
-        Scanner sc = new Scanner(System.in);
-
         VeiculoDao veiculoDao = DaoFactory.createVeiuloDao();
+        ClienteDao clienteDao = DaoFactory.createClienteDao();
 
-        System.out.println("Digite o número da placa que deseja buscar: ");
-        String placa = sc.next();
+        Cliente cliente = clienteDao.findById(1);
 
-        Veiculo veiculo = veiculoDao.findByPlaca(placa.toUpperCase().trim());
+        List<Veiculo> list = veiculoDao.findByCliente(cliente);
 
-        System.out.println(veiculo);
+        System.out.println(list);
 
-        sc.close();
     }
 }
