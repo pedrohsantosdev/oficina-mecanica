@@ -126,7 +126,41 @@ public class VeiculoDaoJDBC implements VeiculoDao {
 
     @Override
     public Veiculo findById(Integer id) {
-        return null;
+
+        PreparedStatement st = null;
+        ResultSet rs = null;
+
+        try {
+
+            st = conn.prepareStatement(
+                    "SELECT v.*, c.nome, c.cpf, c.telefone, c.email " +
+                            "FROM veiculo v " +
+                            "JOIN cliente c "+
+                            "ON v.cliente_id = c.id " +
+                            "WHERE v.id = ?"
+            );
+
+            st.setInt(1, id);
+
+            rs = st.executeQuery();
+
+            if(rs.next()) {
+                Cliente cliente = instaciarCliente(rs);
+                Veiculo veiculo = instaciarVeiculo(rs, cliente);
+                return veiculo;
+            }
+            else {
+                return null;
+            }
+
+        }
+        catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        }
+        finally {
+            DB.closeStatement(st);
+            DB.closeResultSet(rs);
+        }
     }
 
     @Override
@@ -142,5 +176,29 @@ public class VeiculoDaoJDBC implements VeiculoDao {
     @Override
     public List<Veiculo> findAll() {
         return List.of();
+    }
+
+    private Cliente instaciarCliente(ResultSet rs) throws SQLException {
+
+        Cliente cliente = new Cliente();
+        cliente.setId(rs.getInt("id"));
+        cliente.setNome(rs.getString("nome"));
+        cliente.setCpf(rs.getString("cpf"));
+        cliente.setTelefone(rs.getString("telefone"));
+        cliente.setEmail(rs.getString("email"));
+        return cliente;
+    }
+
+    private Veiculo instaciarVeiculo(ResultSet rs, Cliente cliente) throws SQLException {
+        Veiculo veiculo = new Veiculo();
+        veiculo.setId(rs.getInt("id"));
+        veiculo.setPlaca(rs.getString("placa"));
+        veiculo.setMarca(rs.getString("marca"));
+        veiculo.setModelo(rs.getString("modelo"));
+        veiculo.setAno(rs.getInt("ano"));
+        veiculo.setCor(rs.getString("cor"));
+        veiculo.setQuilometragem(rs.getInt("quilometragem"));
+        veiculo.setCliente(cliente);
+        return veiculo;
     }
 }

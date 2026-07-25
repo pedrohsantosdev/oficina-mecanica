@@ -21,12 +21,12 @@ public class Program {
         Cliente cliente = new Cliente(1, "Pedro", "12345678911", "(33)99999-9988",
                 "pedro@gmail.com");
 
-        Veiculo veiculo = new Veiculo(2, cliente, "BBR1B23", "Toyota", "Hilux SRX", 2024,
+        Veiculo veiculo = new Veiculo(1, cliente, "BBR1B23", "Toyota", "Hilux SRX", 2024,
                 "Branco", 100000);
 
-        veiculoDao.deleteById(2);
+        Veiculo v1 = veiculoDao.findById(1);
 
-        System.out.println("Exclusão completa com sucesso!");
+        System.out.println(v1);
 
 
     }
