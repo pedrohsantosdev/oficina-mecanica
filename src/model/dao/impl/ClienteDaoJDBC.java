@@ -135,7 +135,7 @@ public class ClienteDaoJDBC implements ClienteDao {
             rs = st.executeQuery();
 
             if(rs.next()) {
-                Cliente c = iniciateCliente(rs);
+                Cliente c = instanciarCliente(rs);
                 return c;
             }
             else {
@@ -171,7 +171,7 @@ public class ClienteDaoJDBC implements ClienteDao {
 
             while (rs.next()) {
 
-                Cliente c = iniciateCliente(rs);
+                Cliente c = instanciarCliente(rs);
                 list.add(c);
 
             }
@@ -187,7 +187,7 @@ public class ClienteDaoJDBC implements ClienteDao {
         }
     }
 
-    private Cliente iniciateCliente(ResultSet rs) throws SQLException {
+    private Cliente instanciarCliente(ResultSet rs) throws SQLException {
 
         Cliente cliente = new Cliente();
         cliente.setId(rs.getInt("id"));

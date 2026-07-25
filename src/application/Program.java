@@ -2,6 +2,7 @@ package application;
 
 import model.dao.ClienteDao;
 import model.dao.DaoFactory;
+import model.dao.VeiculoDao;
 import model.entities.Cliente;
 import model.entities.OrdemServico;
 import model.entities.Veiculo;
@@ -15,11 +16,20 @@ public class Program {
 
     public static void main(String[] args) {
 
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
         ClienteDao clienteDao = DaoFactory.createClienteDao();
+        VeiculoDao veiculoDao = DaoFactory.createVeiuloDao();
 
-        List<Cliente> list = clienteDao.findAll();
+        Cliente cliente = new Cliente(1, "Pedro", "12345678911", "(33)99999-9988",
+                "pedro@gmail.com");
 
-        System.out.println(list);
+        Veiculo veiculo = new Veiculo(null, cliente, "BBR1B23", "Toyota", "Hilux SRX", 2024,
+                "Branco", 100000);
+
+        veiculoDao.insert(veiculo);
+
+        System.out.println("Veículo implementado com sucesso! Id: " + veiculo.getId());
 
     }
 }
