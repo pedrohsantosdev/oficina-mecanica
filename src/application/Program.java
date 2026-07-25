@@ -11,23 +11,23 @@ import model.entities.StatusOrdem;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Scanner;
 
 public class Program {
 
     public static void main(String[] args) {
 
+        Scanner sc = new Scanner(System.in);
+
         VeiculoDao veiculoDao = DaoFactory.createVeiuloDao();
 
-        Cliente cliente = new Cliente(1, "Pedro", "12345678911", "(33)99999-9988",
-                "pedro@gmail.com");
+        System.out.println("Digite o número da placa que deseja buscar: ");
+        String placa = sc.next();
 
-        Veiculo veiculo = new Veiculo(1, cliente, "BBR1B23", "Toyota", "Hilux SRX", 2024,
-                "Branco", 100000);
+        Veiculo veiculo = veiculoDao.findByPlaca(placa.toUpperCase().trim());
 
-        Veiculo v1 = veiculoDao.findById(1);
+        System.out.println(veiculo);
 
-        System.out.println(v1);
-
-
+        sc.close();
     }
 }

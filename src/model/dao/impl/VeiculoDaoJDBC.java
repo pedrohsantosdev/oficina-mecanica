@@ -165,7 +165,40 @@ public class VeiculoDaoJDBC implements VeiculoDao {
 
     @Override
     public Veiculo findByPlaca(String placa) {
-        return null;
+
+        PreparedStatement st = null;
+        ResultSet rs = null;
+
+        try {
+
+            st = conn.prepareStatement(
+                    "SELECT v.*, c.nome, c.cpf, c.telefone, c.email " +
+                            "FROM veiculo v " +
+                            "JOIN cliente c "+
+                            "ON v.cliente_id = c.id " +
+                            "WHERE v.placa = ?"
+            );
+
+            st.setString(1, placa);
+
+            rs = st.executeQuery();
+
+            if(rs.next()) {
+                Cliente cliente = instaciarCliente(rs);
+                Veiculo veiculo = instaciarVeiculo(rs, cliente);
+                return veiculo;
+            }
+            else {
+                return null;
+            }
+        }
+        catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        }
+        finally {
+            DB.closeStatement(st);
+            DB.closeResultSet(rs);
+        }
     }
 
     @Override
