@@ -24,12 +24,14 @@ public class Program {
         Cliente cliente = new Cliente(1, "Pedro", "12345678911", "(33)99999-9988",
                 "pedro@gmail.com");
 
-        Veiculo veiculo = new Veiculo(null, cliente, "BBR1B23", "Toyota", "Hilux SRX", 2024,
+        Veiculo veiculo = new Veiculo(1, cliente, "BBR1B23", "Toyota", "Hilux SRX", 2024,
                 "Branco", 100000);
 
-        veiculoDao.insert(veiculo);
+        veiculo.setQuilometragem(80000);
 
-        System.out.println("Veículo implementado com sucesso! Id: " + veiculo.getId());
+        System.out.println("Atualização concluída com sucesso!");
+
+        veiculoDao.update(veiculo);
 
     }
 }

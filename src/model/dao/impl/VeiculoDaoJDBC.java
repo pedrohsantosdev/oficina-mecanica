@@ -69,6 +69,35 @@ public class VeiculoDaoJDBC implements VeiculoDao {
     @Override
     public void update(Veiculo veiculo) {
 
+        PreparedStatement st = null;
+
+        try {
+
+            st = conn.prepareStatement(
+                    "UPDATE veiculo " +
+                            "SET " +
+                            "cliente_id = ?, placa = ?, marca = ?, modelo = ?, ano = ?, cor = ?, quilometragem = ? " +
+                            "WHERE id = ?"
+            );
+
+            st.setInt(1, veiculo.getCliente().getId());
+            st.setString(2, veiculo.getPlaca());
+            st.setString(3, veiculo.getMarca());
+            st.setString(4, veiculo.getModelo());
+            st.setInt(5, veiculo.getAno());
+            st.setString(6, veiculo.getCor());
+            st.setInt(7, veiculo.getQuilometragem());
+            st.setInt(8, veiculo.getId());
+
+            st.executeUpdate();
+
+        }
+        catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        }
+        finally {
+            DB.closeStatement(st);
+        }
     }
 
     @Override
