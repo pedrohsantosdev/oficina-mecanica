@@ -25,18 +25,13 @@ public class Program {
 
         Veiculo veiculo = veiculoDao.findById(1);
 
-        System.out.println(veiculo);
-
-        OrdemServico ordemServico = new OrdemServico(1, veiculo, LocalDate.parse("26/07/2026", dtf), LocalDate.parse("28/07/2026", dtf),
+        OrdemServico ordemServico = new OrdemServico(2, veiculo, LocalDate.parse("26/07/2026", dtf), LocalDate.parse("28/07/2026", dtf),
                 "Cliente relata ruído na suspensão dianteira ao passar por lombadas e buracos.",
                 "Constatado desgaste nas bieletas e nas buchas da barra estabilizadora.", 850.00, StatusOrdem.CONCLUIDO);
 
-        ordemServico.setProblema("Motor falhando em marcha lenta.");
-        ordemServico.setDiagnostico("Troca das velas e limpeza dos bicos.");
+        ordemServicoDao.deleteById(2);
 
-        ordemServicoDao.update(ordemServico);
-
-        System.out.println("Update concluído! Id: " + ordemServico.getId());
+        System.out.println("Delete efetuado com sucesso!");
 
     }
 }
