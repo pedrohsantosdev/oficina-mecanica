@@ -2,6 +2,7 @@ package application;
 
 import model.dao.ClienteDao;
 import model.dao.DaoFactory;
+import model.dao.OrdemServicoDao;
 import model.dao.VeiculoDao;
 import model.entities.Cliente;
 import model.entities.OrdemServico;
@@ -17,11 +18,25 @@ public class Program {
 
     public static void main(String[] args) {
 
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
         VeiculoDao veiculoDao = DaoFactory.createVeiuloDao();
+        OrdemServicoDao ordemServicoDao = DaoFactory.createOrdemServicoDao();
 
-        List<Veiculo> list = veiculoDao.findAll();
+        Veiculo veiculo = veiculoDao.findById(1);
 
-        System.out.println(list);
+        System.out.println(veiculo);
+
+        OrdemServico ordemServico = new OrdemServico(1, veiculo, LocalDate.parse("26/07/2026", dtf), LocalDate.parse("28/07/2026", dtf),
+                "Cliente relata ruído na suspensão dianteira ao passar por lombadas e buracos.",
+                "Constatado desgaste nas bieletas e nas buchas da barra estabilizadora.", 850.00, StatusOrdem.CONCLUIDO);
+
+        ordemServico.setProblema("Motor falhando em marcha lenta.");
+        ordemServico.setDiagnostico("Troca das velas e limpeza dos bicos.");
+
+        ordemServicoDao.update(ordemServico);
+
+        System.out.println("Update concluído! Id: " + ordemServico.getId());
 
     }
 }

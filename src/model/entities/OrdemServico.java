@@ -11,8 +11,8 @@ public class OrdemServico implements Serializable {
 
     private Integer id;
     private Veiculo veiculo;
-    private LocalDate data_entrada;
-    private LocalDate data_saida;
+    private LocalDate dataEntrada;
+    private LocalDate dataSaida;
     private String problema;
     private String diagnostico;
     private Double valor;
@@ -21,11 +21,11 @@ public class OrdemServico implements Serializable {
     public OrdemServico() {
     }
 
-    public OrdemServico(Integer id, Veiculo veiculo, LocalDate data_entrada, LocalDate data_saida, String problema, String diagnostico, Double valor, StatusOrdem statusOrdem) {
+    public OrdemServico(Integer id, Veiculo veiculo, LocalDate dataEntrada, LocalDate dataSaida, String problema, String diagnostico, Double valor, StatusOrdem statusOrdem) {
         this.id = id;
         this.veiculo = veiculo;
-        this.data_entrada = data_entrada;
-        this.data_saida = data_saida;
+        this.dataEntrada = dataEntrada;
+        this.dataSaida = dataSaida;
         this.problema = problema;
         this.diagnostico = diagnostico;
         this.valor = valor;
@@ -48,20 +48,20 @@ public class OrdemServico implements Serializable {
         this.veiculo = veiculo;
     }
 
-    public LocalDate getData_entrada() {
-        return data_entrada;
+    public LocalDate getDataEntrada() {
+        return dataEntrada;
     }
 
-    public void setData_entrada(LocalDate data_entrada) {
-        this.data_entrada = data_entrada;
+    public void setDataEntrada(LocalDate dataEntrada) {
+        this.dataEntrada = dataEntrada;
     }
 
-    public LocalDate getData_saida() {
-        return data_saida;
+    public LocalDate getDataSaida() {
+        return dataSaida;
     }
 
-    public void setData_saida(LocalDate data_saida) {
-        this.data_saida = data_saida;
+    public void setDataSaida(LocalDate dataSaida) {
+        this.dataSaida = dataSaida;
     }
 
     public String getProblema() {
@@ -113,8 +113,8 @@ public class OrdemServico implements Serializable {
         return "OrdemServico - " +
                 "Id: " + id + " | " +
                 "Veiculo: " + veiculo.getPlaca() + " | " +
-                "Data Entrada: " + data_entrada.format(dtf) + " | " +
-                "Data Saida: " + data_saida.format(dtf) + " | " + "\n" +
+                "Data Entrada: " + dataEntrada.format(dtf) + " | " +
+                "Data Saida: " + dataSaida.format(dtf) + " | " + "\n" +
                 "Problema: " + problema + " | " +
                 "Diagnostico: " + diagnostico + " | " +
                 "Valor: " + valor + " | " +
