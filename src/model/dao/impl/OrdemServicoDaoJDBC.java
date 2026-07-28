@@ -11,7 +11,10 @@ import model.entities.Veiculo;
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class OrdemServicoDaoJDBC implements OrdemServicoDao {
 
@@ -168,7 +171,54 @@ public class OrdemServicoDaoJDBC implements OrdemServicoDao {
 
     @Override
     public List<OrdemServico> findByVeiculo(Veiculo veiculo) {
-        return List.of();
+
+        PreparedStatement st = null;
+        ResultSet rs = null;
+
+        try {
+
+            st = conn.prepareStatement(
+                    "SELECT " +
+                            "o.*, v.id AS VeiculoId, v.placa, v.marca, v.modelo, v.ano, " +
+                            "v.cor, v.quilometragem, c.id AS ClienteId, c.nome, c.cpf, c.telefone, c.email " +
+                            "FROM ordem_servico o " +
+                            "INNER JOIN veiculo v ON o.veiculo_id = v.id " +
+                            "INNER JOIN cliente c ON v.cliente_id = c.id " +
+                            "WHERE v.id = ?"
+            );
+
+            st.setInt(1, veiculo.getId());
+
+            rs = st.executeQuery();
+
+            List<OrdemServico> list = new ArrayList<>();
+
+            Cliente c = null;
+            Veiculo v = null;
+
+                while (rs.next()) {
+
+                    if(v == null) {
+
+                        c = instanciarCliente(rs);
+                        v = instanciarVeiculo(rs, c);
+
+                    }
+
+                    OrdemServico o = instanciarOrdemServico(rs, v);
+                    list.add(o);
+
+                }
+
+            return list;
+        }
+        catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        }
+        finally {
+            DB.closeStatement(st);
+            DB.closeResultSet(rs);
+        }
     }
 
     @Override

@@ -19,11 +19,19 @@ public class Program {
 
     public static void main(String[] args) {
 
+        Scanner sc = new Scanner(System.in);
+
         OrdemServicoDao ordemServicoDao = DaoFactory.createOrdemServicoDao();
+        VeiculoDao veiculoDao = DaoFactory.createVeiuloDao();
 
-        OrdemServico ordemServico = ordemServicoDao.findById(1);
+        System.out.println("Digite o id do veículo que deseja buscar suas ordens de pedido: ");
+        int id = sc.nextInt();
 
-        System.out.println(ordemServico);
+        Veiculo veiculo = veiculoDao.findById(id);
+
+        List<OrdemServico> list = ordemServicoDao.findByVeiculo(veiculo);
+
+        System.out.println(list);
 
     }
 }
