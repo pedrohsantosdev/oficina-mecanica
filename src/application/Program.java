@@ -22,14 +22,14 @@ public class Program {
         Scanner sc = new Scanner(System.in);
 
         OrdemServicoDao ordemServicoDao = DaoFactory.createOrdemServicoDao();
-        VeiculoDao veiculoDao = DaoFactory.createVeiuloDao();
+        ClienteDao clienteDao = DaoFactory.createClienteDao();
 
-        System.out.println("Digite o id do veículo que deseja buscar suas ordens de pedido: ");
+        System.out.println("Digite o id do cliente que deseja buscar suas ordens de pedido: ");
         int id = sc.nextInt();
 
-        Veiculo veiculo = veiculoDao.findById(id);
+        Cliente cliente = clienteDao.findById(id);
 
-        List<OrdemServico> list = ordemServicoDao.findByVeiculo(veiculo);
+        List<OrdemServico> list = ordemServicoDao.findByCliente(cliente);
 
         System.out.println(list);
 
