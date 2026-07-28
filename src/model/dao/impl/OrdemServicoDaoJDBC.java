@@ -279,7 +279,53 @@ public class OrdemServicoDaoJDBC implements OrdemServicoDao {
 
     @Override
     public List<OrdemServico> findAll() {
-        return List.of();
+
+        PreparedStatement st = null;
+        ResultSet rs = null;
+
+        try {
+
+            st = conn.prepareStatement(
+                    "SELECT " +
+                            "o.*, v.id AS VeiculoId, v.placa, v.marca, v.modelo, v.ano, " +
+                            "v.cor, v.quilometragem, c.id AS ClienteId, c.nome, c.cpf, c.telefone, c.email " +
+                            "FROM ordem_servico o " +
+                            "INNER JOIN veiculo v ON o.veiculo_id = v.id " +
+                            "INNER JOIN cliente c ON v.cliente_id = c.id "
+            );
+
+            rs = st.executeQuery();
+
+            List<OrdemServico> list = new ArrayList<>();
+            Map<Integer, Veiculo> map = new HashMap<>();
+
+            while (rs.next()) {
+
+                Veiculo v = map.get(rs.getInt("VeiculoId"));
+
+                if(v == null) {
+
+                    Cliente c = instanciarCliente(rs);
+                    v = instanciarVeiculo(rs, c);
+
+                    map.put(rs.getInt("VeiculoId"), v);
+
+                }
+
+                OrdemServico o = instanciarOrdemServico(rs, v);
+                list.add(o);
+
+            }
+
+            return list;
+        }
+        catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        }
+        finally {
+            DB.closeStatement(st);
+            DB.closeResultSet(rs);
+        }
     }
 
     private Cliente instanciarCliente(ResultSet rs) throws SQLException {

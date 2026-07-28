@@ -22,14 +22,8 @@ public class Program {
         Scanner sc = new Scanner(System.in);
 
         OrdemServicoDao ordemServicoDao = DaoFactory.createOrdemServicoDao();
-        ClienteDao clienteDao = DaoFactory.createClienteDao();
 
-        System.out.println("Digite o id do cliente que deseja buscar suas ordens de pedido: ");
-        int id = sc.nextInt();
-
-        Cliente cliente = clienteDao.findById(id);
-
-        List<OrdemServico> list = ordemServicoDao.findByCliente(cliente);
+        List<OrdemServico> list = ordemServicoDao.findAll();
 
         System.out.println(list);
 
