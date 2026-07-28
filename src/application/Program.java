@@ -19,11 +19,9 @@ public class Program {
 
     public static void main(String[] args) {
 
-        Scanner sc = new Scanner(System.in);
-
         OrdemServicoDao ordemServicoDao = DaoFactory.createOrdemServicoDao();
 
-        List<OrdemServico> list = ordemServicoDao.findAll();
+        List<OrdemServico> list = ordemServicoDao.findByStatus(StatusOrdem.CONCLUIDO);
 
         System.out.println(list);
 
