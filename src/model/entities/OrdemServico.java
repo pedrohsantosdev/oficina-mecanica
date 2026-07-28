@@ -112,6 +112,7 @@ public class OrdemServico implements Serializable {
     public String toString() {
         return "OrdemServico - " +
                 "Id: " + id + " | " +
+                "Cliente: " + veiculo.getCliente().getNome() + " | " +
                 "Veiculo: " + veiculo.getPlaca() + " | " +
                 "Data Entrada: " + dataEntrada.format(dtf) + " | " +
                 "Data Saida: " + dataSaida.format(dtf) + " | " + "\n" +

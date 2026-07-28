@@ -136,7 +136,7 @@ public class VeiculoDaoJDBC implements VeiculoDao {
         try {
 
             st = conn.prepareStatement(
-                    "SELECT v.*, c.nome, c.cpf, c.telefone, c.email " +
+                    "SELECT v.*, c.id AS ClienteId, c.nome, c.cpf, c.telefone, c.email " +
                             "FROM veiculo v " +
                             "JOIN cliente c "+
                             "ON v.cliente_id = c.id " +
@@ -296,7 +296,7 @@ public class VeiculoDaoJDBC implements VeiculoDao {
     private Cliente instaciarCliente(ResultSet rs) throws SQLException {
 
         Cliente cliente = new Cliente();
-        cliente.setId(rs.getInt("id"));
+        cliente.setId(rs.getInt("ClienteId"));
         cliente.setNome(rs.getString("nome"));
         cliente.setCpf(rs.getString("cpf"));
         cliente.setTelefone(rs.getString("telefone"));

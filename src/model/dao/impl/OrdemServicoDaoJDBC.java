@@ -127,7 +127,43 @@ public class OrdemServicoDaoJDBC implements OrdemServicoDao {
 
     @Override
     public OrdemServico findById(Integer id) {
-        return null;
+
+        PreparedStatement st = null;
+        ResultSet rs = null;
+
+        try {
+
+            st = conn.prepareStatement(
+                    "SELECT " +
+                            "o.*, v.id AS VeiculoId, v.placa, v.marca, v.modelo, v.ano, " +
+                            "v.cor, v.quilometragem, c.id AS ClienteId, c.nome, c.cpf, c.telefone, c.email " +
+                            "FROM ordem_servico o " +
+                            "INNER JOIN veiculo v ON o.veiculo_id = v.id " +
+                            "INNER JOIN cliente c ON v.cliente_id = c.id " +
+                            "WHERE o.id = ?"
+            );
+
+            st.setInt(1, id);
+
+            rs = st.executeQuery();
+
+            if(rs.next()) {
+                Cliente c = instanciarCliente(rs);
+                Veiculo v = instanciarVeiculo(rs, c);
+                OrdemServico o = instanciarOrdemServico(rs, v);
+                return o;
+            }
+            else {
+                return null;
+            }
+        }
+        catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        }
+        finally {
+            DB.closeStatement(st);
+            DB.closeResultSet(rs);
+        }
     }
 
     @Override
@@ -148,5 +184,53 @@ public class OrdemServicoDaoJDBC implements OrdemServicoDao {
     @Override
     public List<OrdemServico> findAll() {
         return List.of();
+    }
+
+    private Cliente instanciarCliente(ResultSet rs) throws SQLException {
+
+        Cliente cliente = new Cliente();
+
+        cliente.setId(rs.getInt("ClienteId"));
+        cliente.setNome(rs.getString("nome"));
+        cliente.setCpf(rs.getString("cpf"));
+        cliente.setTelefone(rs.getString("telefone"));
+        cliente.setEmail(rs.getString("email"));
+
+        return cliente;
+
+    }
+
+    private Veiculo instanciarVeiculo(ResultSet rs, Cliente c) throws SQLException {
+
+        Veiculo veiculo = new Veiculo();
+
+        veiculo.setId(rs.getInt("VeiculoId"));
+        veiculo.setPlaca(rs.getString("placa"));
+        veiculo.setMarca(rs.getString("marca"));
+        veiculo.setModelo(rs.getString("modelo"));
+        veiculo.setAno(rs.getInt("ano"));
+        veiculo.setCor(rs.getString("cor"));
+        veiculo.setQuilometragem(rs.getInt("quilometragem"));
+        veiculo.setCliente(c);
+
+        return veiculo;
+
+    }
+
+    private OrdemServico instanciarOrdemServico(ResultSet rs, Veiculo v) throws SQLException {
+
+        OrdemServico ordemServico = new OrdemServico();
+
+        ordemServico.setId(rs.getInt("id"));
+        ordemServico.setDataEntrada(rs.getDate("data_entrada").toLocalDate());
+        ordemServico.setDataSaida(rs.getDate("data_saida").toLocalDate());
+        ordemServico.setProblema(rs.getString("problema"));
+        ordemServico.setDiagnostico(rs.getString("diagnostico"));
+        ordemServico.setValor(rs.getDouble("valor"));
+        ordemServico.setStatusOrdem(StatusOrdem.valueOf(rs.getString("status_ordem")));
+        ordemServico.setVeiculo(v);
+
+        return ordemServico;
+
     }
 }
