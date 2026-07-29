@@ -148,8 +148,8 @@ public class VeiculoDaoJDBC implements VeiculoDao {
             rs = st.executeQuery();
 
             if(rs.next()) {
-                Cliente cliente = instaciarCliente(rs);
-                Veiculo veiculo = instaciarVeiculo(rs, cliente);
+                Cliente cliente = instanciarCliente(rs);
+                Veiculo veiculo = instanciarVeiculo(rs, cliente);
                 return veiculo;
             }
             else {
@@ -161,8 +161,8 @@ public class VeiculoDaoJDBC implements VeiculoDao {
             throw new DbException(e.getMessage());
         }
         finally {
-            DB.closeStatement(st);
             DB.closeResultSet(rs);
+            DB.closeStatement(st);
         }
     }
 
@@ -175,7 +175,7 @@ public class VeiculoDaoJDBC implements VeiculoDao {
         try {
 
             st = conn.prepareStatement(
-                    "SELECT v.*, c.nome, c.cpf, c.telefone, c.email " +
+                    "SELECT v.*, c.id AS ClienteId, c.nome, c.cpf, c.telefone, c.email " +
                             "FROM veiculo v " +
                             "JOIN cliente c "+
                             "ON v.cliente_id = c.id " +
@@ -187,8 +187,8 @@ public class VeiculoDaoJDBC implements VeiculoDao {
             rs = st.executeQuery();
 
             if(rs.next()) {
-                Cliente cliente = instaciarCliente(rs);
-                Veiculo veiculo = instaciarVeiculo(rs, cliente);
+                Cliente cliente = instanciarCliente(rs);
+                Veiculo veiculo = instanciarVeiculo(rs, cliente);
                 return veiculo;
             }
             else {
@@ -199,8 +199,8 @@ public class VeiculoDaoJDBC implements VeiculoDao {
             throw new DbException(e.getMessage());
         }
         finally {
-            DB.closeStatement(st);
             DB.closeResultSet(rs);
+            DB.closeStatement(st);
         }
     }
 
@@ -213,7 +213,7 @@ public class VeiculoDaoJDBC implements VeiculoDao {
         try {
 
             st = conn.prepareStatement(
-                    "SELECT v.*, c.nome, c.cpf, c.telefone, c.email " +
+                    "SELECT v.*, c.id as ClienteId, c.nome, c.cpf, c.telefone, c.email " +
                             "FROM veiculo v " +
                             "JOIN cliente c "+
                             "ON v.cliente_id = c.id " +
@@ -234,12 +234,12 @@ public class VeiculoDaoJDBC implements VeiculoDao {
 
                 if(c == null) {
 
-                    c = instaciarCliente(rs);
+                    c = instanciarCliente(rs);
                     map.put(rs.getInt("cliente_id"), c);
 
                 }
 
-                Veiculo v = instaciarVeiculo(rs, c);
+                Veiculo v = instanciarVeiculo(rs, c);
                 list.add(v);
             }
 
@@ -250,8 +250,8 @@ public class VeiculoDaoJDBC implements VeiculoDao {
             throw new DbException(e.getMessage());
         }
         finally {
-            DB.closeStatement(st);
             DB.closeResultSet(rs);
+            DB.closeStatement(st);
         }
 
     }
@@ -265,7 +265,7 @@ public class VeiculoDaoJDBC implements VeiculoDao {
         try {
 
             st = conn.prepareStatement(
-                    "SELECT v.*, c.nome, c.cpf, c.telefone, c.email " +
+                    "SELECT v.*, c.id as ClienteId, c.nome, c.cpf, c.telefone, c.email " +
                             "FROM veiculo v " +
                             "JOIN cliente c " +
                             "ON v.cliente_id = c.id " +
@@ -278,8 +278,8 @@ public class VeiculoDaoJDBC implements VeiculoDao {
 
             while (rs.next()) {
 
-                Cliente cliente = instaciarCliente(rs);
-                Veiculo veiculo = instaciarVeiculo(rs, cliente);
+                Cliente cliente = instanciarCliente(rs);
+                Veiculo veiculo = instanciarVeiculo(rs, cliente);
                 list.add(veiculo);
 
             }
@@ -290,12 +290,12 @@ public class VeiculoDaoJDBC implements VeiculoDao {
             throw new DbException(e.getMessage());
         }
         finally {
-            DB.closeStatement(st);
             DB.closeResultSet(rs);
+            DB.closeStatement(st);
         }
     }
 
-    private Cliente instaciarCliente(ResultSet rs) throws SQLException {
+    private Cliente instanciarCliente(ResultSet rs) throws SQLException {
 
         Cliente cliente = new Cliente();
         cliente.setId(rs.getInt("ClienteId"));
@@ -306,7 +306,8 @@ public class VeiculoDaoJDBC implements VeiculoDao {
         return cliente;
     }
 
-    private Veiculo instaciarVeiculo(ResultSet rs, Cliente cliente) throws SQLException {
+    private Veiculo instanciarVeiculo(ResultSet rs, Cliente cliente) throws SQLException {
+
         Veiculo veiculo = new Veiculo();
         veiculo.setId(rs.getInt("id"));
         veiculo.setPlaca(rs.getString("placa"));
@@ -317,5 +318,6 @@ public class VeiculoDaoJDBC implements VeiculoDao {
         veiculo.setQuilometragem(rs.getInt("quilometragem"));
         veiculo.setCliente(cliente);
         return veiculo;
+
     }
 }
