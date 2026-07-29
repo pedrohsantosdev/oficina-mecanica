@@ -9,8 +9,6 @@ import model.entities.StatusOrdem;
 import model.entities.Veiculo;
 
 import java.sql.*;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -42,7 +40,9 @@ public class OrdemServicoDaoJDBC implements OrdemServicoDao {
 
             st.setInt(1, ordemServico.getVeiculo().getId());
             st.setDate(2, java.sql.Date.valueOf(ordemServico.getDataEntrada()));
-            st.setDate(3, java.sql.Date.valueOf(ordemServico.getDataSaida()));
+            st.setDate(3, ordemServico.getDataSaida() != null
+                    ? java.sql.Date.valueOf(ordemServico.getDataSaida())
+                    : null);
             st.setString(4, ordemServico.getProblema());
             st.setString(5, ordemServico.getDiagnostico());
             st.setDouble(6, ordemServico.getValor());
@@ -59,6 +59,9 @@ public class OrdemServicoDaoJDBC implements OrdemServicoDao {
                 }
 
                 DB.closeResultSet(rs);
+            }
+            else {
+                throw new DbException("Erro na inserção!");
             }
         }
         catch (SQLException e) {
@@ -86,14 +89,20 @@ public class OrdemServicoDaoJDBC implements OrdemServicoDao {
 
             st.setInt(1, ordemServico.getVeiculo().getId());
             st.setDate(2, java.sql.Date.valueOf(ordemServico.getDataEntrada()));
-            st.setDate(3, java.sql.Date.valueOf(ordemServico.getDataSaida()));
+            st.setDate(3, ordemServico.getDataSaida() != null
+                    ? java.sql.Date.valueOf(ordemServico.getDataSaida())
+                    : null);
             st.setString(4, ordemServico.getProblema());
             st.setString(5, ordemServico.getDiagnostico());
             st.setDouble(6, ordemServico.getValor());
             st.setString(7, ordemServico.getStatusOrdem().name());
             st.setInt(8, ordemServico.getId());
 
-            st.executeUpdate();
+            int rowsAffected = st.executeUpdate();
+
+            if(rowsAffected == 0) {
+                throw new DbException("Erro na atualização!");
+            }
 
         }
         catch (SQLException e) {
@@ -118,7 +127,11 @@ public class OrdemServicoDaoJDBC implements OrdemServicoDao {
 
             st.setInt(1, id);
 
-            st.executeUpdate();
+            int rowsAffected = st.executeUpdate();
+
+            if(rowsAffected == 0) {
+                throw new DbException("Erro na exclusão!");
+            }
         }
         catch (SQLException e) {
             throw new DbException(e.getMessage());
@@ -164,8 +177,8 @@ public class OrdemServicoDaoJDBC implements OrdemServicoDao {
             throw new DbException(e.getMessage());
         }
         finally {
-            DB.closeStatement(st);
             DB.closeResultSet(rs);
+            DB.closeStatement(st);
         }
     }
 
@@ -216,8 +229,8 @@ public class OrdemServicoDaoJDBC implements OrdemServicoDao {
             throw new DbException(e.getMessage());
         }
         finally {
-            DB.closeStatement(st);
             DB.closeResultSet(rs);
+            DB.closeStatement(st);
         }
     }
 
@@ -267,8 +280,8 @@ public class OrdemServicoDaoJDBC implements OrdemServicoDao {
             throw new DbException(e.getMessage());
         }
         finally {
-            DB.closeStatement(st);
             DB.closeResultSet(rs);
+            DB.closeStatement(st);
         }
     }
 
@@ -318,8 +331,8 @@ public class OrdemServicoDaoJDBC implements OrdemServicoDao {
             throw new DbException(e.getMessage());
         }
         finally {
-            DB.closeStatement(st);
             DB.closeResultSet(rs);
+            DB.closeStatement(st);
         }
     }
 
@@ -369,8 +382,8 @@ public class OrdemServicoDaoJDBC implements OrdemServicoDao {
             throw new DbException(e.getMessage());
         }
         finally {
-            DB.closeStatement(st);
             DB.closeResultSet(rs);
+            DB.closeStatement(st);
         }
     }
 
@@ -411,7 +424,8 @@ public class OrdemServicoDaoJDBC implements OrdemServicoDao {
 
         ordemServico.setId(rs.getInt("id"));
         ordemServico.setDataEntrada(rs.getDate("data_entrada").toLocalDate());
-        ordemServico.setDataSaida(rs.getDate("data_saida").toLocalDate());
+        Date dataSaida = rs.getDate("data_saida");
+        ordemServico.setDataSaida(dataSaida != null ? dataSaida.toLocalDate() : null);
         ordemServico.setProblema(rs.getString("problema"));
         ordemServico.setDiagnostico(rs.getString("diagnostico"));
         ordemServico.setValor(rs.getDouble("valor"));

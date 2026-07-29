@@ -92,7 +92,11 @@ public class VeiculoDaoJDBC implements VeiculoDao {
             st.setInt(7, veiculo.getQuilometragem());
             st.setInt(8, veiculo.getId());
 
-            st.executeUpdate();
+            int rowsAffected = st.executeUpdate();
+
+            if(rowsAffected == 0) {
+                throw new DbException("Erro na inserção!");
+            }
 
         }
         catch (SQLException e) {
@@ -117,7 +121,12 @@ public class VeiculoDaoJDBC implements VeiculoDao {
 
             st.setInt(1, id);
 
-            st.executeUpdate();
+            int rowsAffected = st.executeUpdate();
+
+            if(rowsAffected == 0) {
+                throw new DbException("Erro na exclusão!");
+            }
+
         }
         catch (SQLException e) {
             throw new DbException(e.getMessage());
@@ -304,6 +313,7 @@ public class VeiculoDaoJDBC implements VeiculoDao {
         cliente.setTelefone(rs.getString("telefone"));
         cliente.setEmail(rs.getString("email"));
         return cliente;
+        
     }
 
     private Veiculo instanciarVeiculo(ResultSet rs, Cliente cliente) throws SQLException {
