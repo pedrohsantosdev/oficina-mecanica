@@ -19,9 +19,13 @@ public class Program {
 
     public static void main(String[] args) {
 
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        ClienteDao clienteDao = DaoFactory.createClienteDao();
+        VeiculoDao veiculoDao = DaoFactory.createVeiuloDao();
         OrdemServicoDao ordemServicoDao = DaoFactory.createOrdemServicoDao();
 
-        List<OrdemServico> list = ordemServicoDao.findByStatus(StatusOrdem.CONCLUIDO);
+        List<Cliente> list = clienteDao.findAll();
 
         System.out.println(list);
 

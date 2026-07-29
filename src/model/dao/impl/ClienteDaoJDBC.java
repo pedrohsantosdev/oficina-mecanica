@@ -82,7 +82,11 @@ public class ClienteDaoJDBC implements ClienteDao {
             st.setString(4, cliente.getEmail());
             st.setInt(5, cliente.getId());
 
-            st.executeUpdate();
+            int rowsAffected = st.executeUpdate();
+
+            if(rowsAffected == 0) {
+                throw new DbException("Erro na atualização!");
+            }
         }
         catch (SQLException e) {
             throw new DbException(e.getMessage());
@@ -106,7 +110,11 @@ public class ClienteDaoJDBC implements ClienteDao {
 
             st.setInt(1, id);
 
-            st.executeUpdate();
+            int rowsAffected = st.executeUpdate();
+
+            if(rowsAffected == 0) {
+                throw new DbException("Erro na exclusão!");
+            }
 
         }
         catch (SQLException e) {
@@ -146,8 +154,8 @@ public class ClienteDaoJDBC implements ClienteDao {
             throw new DbException(e.getMessage());
         }
         finally {
-            DB.closeStatement(st);
             DB.closeResultSet(rs);
+            DB.closeStatement(st);
         }
     }
 
@@ -162,7 +170,7 @@ public class ClienteDaoJDBC implements ClienteDao {
 
             st = conn.prepareStatement(
                     "SELECT * FROM cliente " +
-                            "ORDER BY nome"
+                            "ORDER BY id"
             );
 
             rs = st.executeQuery();
@@ -182,8 +190,8 @@ public class ClienteDaoJDBC implements ClienteDao {
             throw new DbException(e.getMessage());
         }
         finally {
-            DB.closeStatement(st);
             DB.closeResultSet(rs);
+            DB.closeStatement(st);
         }
     }
 

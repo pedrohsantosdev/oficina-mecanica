@@ -217,7 +217,8 @@ public class VeiculoDaoJDBC implements VeiculoDao {
                             "FROM veiculo v " +
                             "JOIN cliente c "+
                             "ON v.cliente_id = c.id " +
-                            "WHERE v.cliente_id = ?"
+                            "WHERE v.cliente_id = ? " +
+                            "ORDER BY v.id"
             );
 
             st.setInt(1, cliente.getId());
@@ -267,7 +268,8 @@ public class VeiculoDaoJDBC implements VeiculoDao {
                     "SELECT v.*, c.nome, c.cpf, c.telefone, c.email " +
                             "FROM veiculo v " +
                             "JOIN cliente c " +
-                            "ON v.cliente_id = c.id"
+                            "ON v.cliente_id = c.id " +
+                            "ORDER BY v.id"
             );
 
             rs = st.executeQuery();
