@@ -313,7 +313,7 @@ public class VeiculoDaoJDBC implements VeiculoDao {
         cliente.setTelefone(rs.getString("telefone"));
         cliente.setEmail(rs.getString("email"));
         return cliente;
-        
+
     }
 
     private Veiculo instanciarVeiculo(ResultSet rs, Cliente cliente) throws SQLException {
