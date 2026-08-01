@@ -22,6 +22,10 @@ public class VeiculoService {
 
     public Veiculo buscarVeiculo(Integer id) {
 
+        if(id == null) {
+            throw new RuntimeException("Id inválido!");
+        }
+
         return veiculoDao.findById(id);
     }
 

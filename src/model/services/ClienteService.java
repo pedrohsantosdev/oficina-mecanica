@@ -20,6 +20,11 @@ public class ClienteService {
     }
 
     public Cliente buscarCliente(Integer id) {
+
+        if(id == null) {
+            throw new RuntimeException("Id inválido!");
+        }
+
         return clienteDao.findById(id);
     }
 
