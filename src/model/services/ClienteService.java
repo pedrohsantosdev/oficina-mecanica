@@ -34,7 +34,7 @@ public class ClienteService {
 
     public void apagarCliente(Integer id) {
 
-        if(id == null) {
+        if(clienteDao.findById(id) == null) {
             throw new RuntimeException("Id não existente!");
         }
 
