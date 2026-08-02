@@ -19,7 +19,7 @@ public class VeiculoMenu {
         this.sc = sc;
     }
 
-    private void exibirVeiculoMenu() {
+    public void exibirVeiculoMenu() {
 
         int opcao = -1;
 
@@ -169,7 +169,7 @@ public class VeiculoMenu {
 
     }
 
-    public void deletarCadastro() {
+    private void deletarCadastro() {
 
         System.out.println("DELETANDO CADASTRO: ");
         System.out.print("Digite o id do veículo que deseja deletar: ");
@@ -189,7 +189,7 @@ public class VeiculoMenu {
 
     }
 
-    public void buscarPorId() {
+    private void buscarPorId() {
 
         System.out.println("BUSCANDO VEÍCULO: ");
         System.out.print("Digite o id do veículo: ");
@@ -206,7 +206,7 @@ public class VeiculoMenu {
 
     }
 
-    public void buscarPorPlaca() {
+    private void buscarPorPlaca() {
 
         System.out.println("BUSCANDO VEÍCULO PELA PLACA: ");
         System.out.print("Entre com a placa do veículo: ");
@@ -223,7 +223,7 @@ public class VeiculoMenu {
 
     }
 
-    public void buscarPeloCliente() {
+    private void buscarPeloCliente() {
 
         System.out.println("BUSCANDO VEÍCULOS PELO CLIENTE: ");
         System.out.print("Digite o id do cliente que deseja buscar: ");
@@ -252,7 +252,7 @@ public class VeiculoMenu {
 
     }
 
-    public void listarTodos() {
+    private void listarTodos() {
 
         System.out.println("BUSCANDO TODOS OS VEÍCULOS CADASTRADOS: ");
 

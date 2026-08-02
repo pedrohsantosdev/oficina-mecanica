@@ -26,13 +26,14 @@ public class OrdemServicoMenu {
         this.sc = sc;
     }
 
-    private void exibirOrdemDeServicoMenu() {
+    public void exibirOrdemDeServicoMenu() {
 
         int opcao = -1;
 
         do {
 
             System.out.println("=== MENU DE ORDENS DE SERVIÇOS ===");
+            System.out.println();
             System.out.println("1 - Abrir ordem");
             System.out.println("2 - Atualizar ordem");
             System.out.println("3 - Excluir ordem de serviço");
@@ -42,6 +43,7 @@ public class OrdemServicoMenu {
             System.out.println("7 - Buscar ordens por status");
             System.out.println("8 - Listar todas as ordens");
             System.out.println("0 - Fechar programa");
+            System.out.println();
 
             try {
 
