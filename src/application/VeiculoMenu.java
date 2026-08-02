@@ -124,6 +124,7 @@ public class VeiculoMenu {
         service.cadastrarVeiculo(veiculo);
 
         System.out.println("Veículo cadastrado com sucesso!");
+        System.out.println("Id: " + veiculo.getId());
 
     }
 

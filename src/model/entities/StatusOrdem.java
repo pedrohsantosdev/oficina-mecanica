@@ -3,7 +3,7 @@ package model.entities;
 public enum StatusOrdem {
 
     ABERTO,
-    EM_ANDAMENTO,
+    ATIVO,
     CONCLUIDO,
     CANCELADO;
 }
