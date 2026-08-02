@@ -22,7 +22,7 @@ public class ClienteService {
     public Cliente buscarCliente(Integer id) {
 
         if(id == null) {
-            throw new RuntimeException("Id inválido!");
+            System.out.println("Id inválido!");
         }
 
         return clienteDao.findById(id);
@@ -31,7 +31,8 @@ public class ClienteService {
     public void atualizarCliente(Cliente cliente) {
 
         if(clienteDao.findById(cliente.getId()) == null) {
-            throw new RuntimeException("Cliente não existe!");
+            System.out.println("Cliente não exite!");
+            return;
         }
 
         clienteDao.update(cliente);
@@ -40,7 +41,8 @@ public class ClienteService {
     public void apagarCliente(Integer id) {
 
         if(clienteDao.findById(id) == null) {
-            throw new RuntimeException("Id não existente!");
+            System.out.println("Id não existente!");
+            return;
         }
 
         clienteDao.deleteById(id);

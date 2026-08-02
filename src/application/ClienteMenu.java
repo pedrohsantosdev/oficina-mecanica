@@ -16,7 +16,7 @@ public class ClienteMenu {
         this.sc = sc;
     }
 
-    public void exibirMenu() {
+    public void exibirMenuCliente() {
 
         int opcao = -1;
 
@@ -141,6 +141,7 @@ public class ClienteMenu {
         service.apagarCliente(id);
 
         System.out.println("Cadastro apagado com sucesso!");
+
     }
 
     private void buscarCliente() {
