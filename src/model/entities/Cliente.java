@@ -15,11 +15,64 @@ public class Cliente implements Serializable {
     }
 
     public Cliente(Integer id, String nome, String cpf, String telefone, String email) {
+        validarNome(nome);
+        validarCpf(cpf);
+        validarTelefone(telefone);
+        validarEmail(email);
+
         this.id = id;
-        this.nome = nome;
-        this.cpf = cpf;
-        this.telefone = telefone;
-        this.email = email;
+        this.nome = nome.trim();
+        this.cpf = cpf.replaceAll("\\D", "");
+        this.telefone = telefone.replaceAll("\\D", "");
+        this.email = email.trim();
+    }
+
+    private void validarNome(String nome) {
+
+        if(nome == null || nome.isBlank()) {
+            throw new IllegalArgumentException("Nome inválido!");
+        }
+    }
+
+   private void validarCpf(String cpf) {
+
+        if(cpf == null || cpf.isBlank()) {
+            throw new IllegalArgumentException("Cpf é obrigatório!");
+        }
+
+        cpf = cpf.replaceAll("[^0-9]", "");
+
+        if(cpf.length() != 11) {
+            throw new IllegalArgumentException("Cpf inválido!");
+        }
+
+    }
+
+    private void validarTelefone(String telefone) {
+
+        if(telefone == null || telefone.isBlank()) {
+            throw new IllegalArgumentException("Telefone é obrigatório!");
+        }
+
+        telefone = telefone.replaceAll("\\D", "");
+
+        if(telefone.length() != 10 && telefone.length() != 11) {
+            throw new IllegalArgumentException("Telefone inválido!");
+        }
+
+    }
+
+    private void validarEmail(String email) {
+
+        if(email == null || email.isBlank()) {
+            throw new IllegalArgumentException("Email é obrigatório!");
+        }
+
+        email = email.trim();
+
+        if (!email.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$")) {
+            throw new IllegalArgumentException("E-mail inválido!");
+        }
     }
 
     public Integer getId() {
@@ -35,7 +88,8 @@ public class Cliente implements Serializable {
     }
 
     public void setNome(String nome) {
-        this.nome = nome;
+        validarNome(nome);
+        this.nome = nome.trim();
     }
 
     public String getCpf() {
@@ -43,7 +97,8 @@ public class Cliente implements Serializable {
     }
 
     public void setCpf(String cpf) {
-        this.cpf = cpf;
+        validarCpf(cpf);
+        this.cpf = cpf.replaceAll("\\D", "");
     }
 
     public String getTelefone() {
@@ -51,7 +106,8 @@ public class Cliente implements Serializable {
     }
 
     public void setTelefone(String telefone) {
-        this.telefone = telefone;
+        validarTelefone(telefone);
+        this.telefone = telefone.replaceAll("\\D", "");
     }
 
     public String getEmail() {
@@ -59,7 +115,8 @@ public class Cliente implements Serializable {
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        validarEmail(email);
+        this.email = email.trim();
     }
 
     @Override
