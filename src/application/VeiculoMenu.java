@@ -237,7 +237,7 @@ public class VeiculoMenu {
             return;
         }
 
-        List<Veiculo> list = service.buscarCliente(cliente);
+        List<Veiculo> list = service.buscarVeiculosPorCliente(cliente);
 
         if(list.isEmpty()) {
             System.out.println("Lista vazia!");

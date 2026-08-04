@@ -9,7 +9,7 @@ import java.util.List;
 
 public class VeiculoService {
 
-    private final VeiculoDao veiculoDao = DaoFactory.createVeiuloDao();
+    private final VeiculoDao veiculoDao = DaoFactory.createVeiculoDao();
 
     public void cadastrarVeiculo(Veiculo veiculo) {
 
@@ -23,7 +23,7 @@ public class VeiculoService {
     public Veiculo buscarVeiculo(Integer id) {
 
         if(id == null) {
-            throw new RuntimeException("Id não pode ser nulo!");
+            throw new IllegalArgumentException("Id não pode ser nulo!");
         }
 
         Veiculo veiculo = veiculoDao.findById(id);
@@ -84,7 +84,7 @@ public class VeiculoService {
         return veiculo;
     }
 
-    public List<Veiculo> buscarCliente(Cliente cliente) {
+    public List<Veiculo> buscarVeiculosPorCliente(Cliente cliente) {
 
         if(cliente == null) {
             throw new IllegalArgumentException("Cliente não pode ser nulo!");

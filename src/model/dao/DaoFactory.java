@@ -11,7 +11,7 @@ public class DaoFactory {
         return new ClienteDaoJDBC(DB.getConnection());
     }
 
-    public static VeiculoDaoJDBC createVeiuloDao() {
+    public static VeiculoDaoJDBC createVeiculoDao() {
         return new VeiculoDaoJDBC(DB.getConnection());
     }
 
