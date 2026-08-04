@@ -13,7 +13,7 @@ public class ClienteService {
     public void cadastrarCliente(Cliente cliente) {
 
         if(cliente == null) {
-            throw new RuntimeException("Cliente não pode ser nulo!");
+            throw new IllegalArgumentException("Cliente não pode ser nulo!");
         }
 
         clienteDao.insert(cliente);
@@ -22,17 +22,32 @@ public class ClienteService {
     public Cliente buscarCliente(Integer id) {
 
         if(id == null) {
-            System.out.println("Id inválido!");
+            throw new IllegalArgumentException("Id inválido!");
         }
 
-        return clienteDao.findById(id);
+        Cliente cliente = clienteDao.findById(id);
+
+        if(cliente == null) {
+            throw new IllegalArgumentException("Cliente não encontrado!");
+        }
+
+        return cliente;
     }
 
     public void atualizarCliente(Cliente cliente) {
 
-        if(clienteDao.findById(cliente.getId()) == null) {
-            System.out.println("Cliente não exite!");
-            return;
+        if(cliente == null) {
+            throw new IllegalArgumentException("Cliente não pode ser nulo!");
+        }
+
+        if(cliente.getId() == null) {
+            throw new IllegalArgumentException("Cliente inválido!");
+        }
+
+        Cliente existente = clienteDao.findById(cliente.getId());
+
+        if(existente == null) {
+            throw new IllegalArgumentException("Cliente não encontrado!");
         }
 
         clienteDao.update(cliente);
@@ -40,15 +55,21 @@ public class ClienteService {
 
     public void apagarCliente(Integer id) {
 
-        if(clienteDao.findById(id) == null) {
-            System.out.println("Id não existente!");
-            return;
+        if(id == null) {
+            throw new IllegalArgumentException("Id não pode ser nulo!");
+        }
+
+        Cliente cliente = clienteDao.findById(id);
+
+        if(cliente == null) {
+            throw new IllegalArgumentException("Id não existente!");
         }
 
         clienteDao.deleteById(id);
     }
 
     public List<Cliente> buscarTodos() {
+
         return clienteDao.findAll();
     }
 }
