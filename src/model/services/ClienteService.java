@@ -22,7 +22,7 @@ public class ClienteService {
     public Cliente buscarCliente(Integer id) {
 
         if(id == null) {
-            throw new IllegalArgumentException("Id inválido!");
+            throw new IllegalArgumentException("Id não pode ser nulo!");
         }
 
         Cliente cliente = clienteDao.findById(id);
@@ -41,7 +41,7 @@ public class ClienteService {
         }
 
         if(cliente.getId() == null) {
-            throw new IllegalArgumentException("Cliente inválido!");
+            throw new IllegalArgumentException("Id não pode ser nulo!");
         }
 
         Cliente existente = clienteDao.findById(cliente.getId());
@@ -62,7 +62,7 @@ public class ClienteService {
         Cliente cliente = clienteDao.findById(id);
 
         if(cliente == null) {
-            throw new IllegalArgumentException("Id não existente!");
+            throw new IllegalArgumentException("Cliente não encontrado!");
         }
 
         clienteDao.deleteById(id);

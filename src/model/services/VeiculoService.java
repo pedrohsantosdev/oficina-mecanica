@@ -14,7 +14,7 @@ public class VeiculoService {
     public void cadastrarVeiculo(Veiculo veiculo) {
 
         if(veiculo == null) {
-            throw new RuntimeException("Veículo não pode ser nulo!");
+            throw new IllegalArgumentException("Veículo não pode ser nulo!");
         }
 
         veiculoDao.insert(veiculo);
@@ -23,16 +23,32 @@ public class VeiculoService {
     public Veiculo buscarVeiculo(Integer id) {
 
         if(id == null) {
-            throw new RuntimeException("Id inválido!");
+            throw new RuntimeException("Id não pode ser nulo!");
         }
 
-        return veiculoDao.findById(id);
+        Veiculo veiculo = veiculoDao.findById(id);
+
+        if(veiculo == null) {
+            throw new IllegalArgumentException("Veículo não encontrado!");
+        }
+
+        return veiculo;
     }
 
     public void atualizarVeiculo(Veiculo veiculo) {
 
-        if(veiculoDao.findById(veiculo.getId()) == null) {
-            throw new RuntimeException("Esse veículo não existe!");
+        if(veiculo == null) {
+            throw new IllegalArgumentException("Veículo não pode ser nulo!");
+        }
+
+        if(veiculo.getId() == null) {
+            throw new IllegalArgumentException("Id não pode ser nulo!");
+        }
+
+        Veiculo existente = veiculoDao.findById(veiculo.getId());
+
+        if(existente == null) {
+            throw new IllegalArgumentException("Veículo não encontrado!");
         }
 
         veiculoDao.update(veiculo);
@@ -40,8 +56,14 @@ public class VeiculoService {
 
     public void deletarVeiculo(Integer id) {
 
-        if(veiculoDao.findById(id) == null) {
-            throw new RuntimeException("Veículo não existe!");
+        if(id == null) {
+            throw new IllegalArgumentException("Id não pode ser nulo!");
+        }
+
+        Veiculo veiculo = veiculoDao.findById(id);
+
+        if(veiculo == null) {
+            throw new IllegalArgumentException("Veículo não encontrado!");
         }
 
         veiculoDao.deleteById(id);
@@ -50,16 +72,22 @@ public class VeiculoService {
     public Veiculo buscarPlaca(String placa) {
 
         if(placa == null) {
-            throw new RuntimeException("Placa não existe!");
+            throw new IllegalArgumentException("Placa não existe!");
         }
 
-        return veiculoDao.findByPlaca(placa);
+        Veiculo veiculo = veiculoDao.findByPlaca(placa);
+
+        if(veiculo == null) {
+            throw new IllegalArgumentException("Veículo não encontrado!");
+        }
+
+        return veiculo;
     }
 
     public List<Veiculo> buscarCliente(Cliente cliente) {
 
         if(cliente == null) {
-            throw new RuntimeException("Cliente inválido!");
+            throw new IllegalArgumentException("Cliente não pode ser nulo!");
         }
 
         return veiculoDao.findByCliente(cliente);
