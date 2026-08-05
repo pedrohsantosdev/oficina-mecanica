@@ -136,6 +136,8 @@ public class OrdemServicoMenu {
 
         OrdemServico ordemServico = new OrdemServico(null, veiculo, dataEntrada, dataSaida, problema, diagnostico, valor, status);
 
+        service.abrirOrdem(ordemServico);
+
         System.out.println("Ordem aberta com sucesso!");
         System.out.println("Id: " + ordemServico.getId());
 

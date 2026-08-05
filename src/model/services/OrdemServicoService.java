@@ -7,7 +7,6 @@ import model.entities.OrdemServico;
 import model.entities.StatusOrdem;
 import model.entities.Veiculo;
 
-import java.time.LocalDate;
 import java.util.List;
 
 public class OrdemServicoService {
@@ -16,18 +15,12 @@ public class OrdemServicoService {
 
     public void abrirOrdem(OrdemServico ordemServico) {
 
-        LocalDate agora = LocalDate.now();
-
         if(ordemServico == null) {
-            throw new IllegalStateException("Ordem de serviço inválida!");
+            throw new  IllegalArgumentException("Ordem de serviço inválida!");
         }
 
         if(ordemServico.getDataSaida().isBefore(ordemServico.getDataEntrada())) {
-            throw new IllegalStateException("Não é possível sair antes da entrada!");
-        }
-
-        if(ordemServico.getValor() <= 0) {
-            throw new IllegalStateException("Valor inválido!");
+            throw new  IllegalArgumentException("Não é possível sair antes da entrada!");
         }
 
         ordemServicoDao.insert(ordemServico);
@@ -35,18 +28,18 @@ public class OrdemServicoService {
 
     public void atualizarOrdemServico(OrdemServico ordemServico) {
 
-        LocalDate agora = LocalDate.now();
-
         if(ordemServico == null) {
-            throw new IllegalStateException("Ordem de serviço inválida!");
+            throw new  IllegalArgumentException("Ordem de serviço inválida!");
         }
 
         if(ordemServico.getDataSaida().isBefore(ordemServico.getDataEntrada())) {
-            throw new IllegalStateException("Não é possível sair antes da entrada!");
+            throw new  IllegalArgumentException("Não é possível sair antes da entrada!");
         }
 
-        if(ordemServico.getValor() <= 0) {
-            throw new IllegalStateException("Valor inválido!");
+        OrdemServico existente = ordemServicoDao.findById(ordemServico.getId());
+
+        if(existente == null) {
+            throw new  IllegalArgumentException("Ordem de serviço não foi encontrada!");
         }
 
         ordemServicoDao.update(ordemServico);
@@ -55,11 +48,13 @@ public class OrdemServicoService {
     public void deletarOrdemServico(Integer id) {
 
         if(id == null) {
-            throw new IllegalStateException("Id inválido!");
+            throw new  IllegalArgumentException("Id inválido!");
         }
 
-        if(ordemServicoDao.findById(id) == null) {
-            throw new IllegalStateException("Ordem de serviço não existe!");
+        OrdemServico ordemServico = buscarOrdemServico(id);
+
+        if(ordemServico == null) {
+            throw new  IllegalArgumentException("Ordem de serviço não existe!");
         }
 
         ordemServicoDao.deleteById(id);
@@ -68,7 +63,13 @@ public class OrdemServicoService {
     public OrdemServico buscarOrdemServico(Integer id) {
 
         if(id == null) {
-            throw new IllegalStateException("Id inválido!");
+            throw new IllegalArgumentException("Id inválido!");
+        }
+
+        OrdemServico ordemServico = ordemServicoDao.findById(id);
+
+        if(ordemServico == null) {
+            throw new IllegalArgumentException("Ordem de serviço não existe!");
         }
 
         return ordemServicoDao.findById(id);

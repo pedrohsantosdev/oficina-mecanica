@@ -22,6 +22,14 @@ public class OrdemServico implements Serializable {
     }
 
     public OrdemServico(Integer id, Veiculo veiculo, LocalDate dataEntrada, LocalDate dataSaida, String problema, String diagnostico, Double valor, StatusOrdem statusOrdem) {
+        validarVeiculo(veiculo);
+        validarDataEntrada(dataEntrada);
+        validarDataSaida(dataSaida);
+        validarProblema(problema);
+        validarDiagnostico(diagnostico);
+        validarValor(valor);
+        validarStatus(statusOrdem);
+
         this.id = id;
         this.veiculo = veiculo;
         this.dataEntrada = dataEntrada;
@@ -30,6 +38,64 @@ public class OrdemServico implements Serializable {
         this.diagnostico = diagnostico;
         this.valor = valor;
         this.statusOrdem = statusOrdem;
+    }
+
+    public void validarVeiculo(Veiculo veiculo) {
+
+        if(veiculo == null) {
+            throw new IllegalArgumentException("Veículo não pode ser nulo!");
+        }
+    }
+
+    public void validarDataEntrada(LocalDate dataEntrada) {
+
+        if(dataEntrada == null) {
+            throw new IllegalArgumentException("Data inválida!");
+        }
+
+    }
+
+    public void validarDataSaida(LocalDate dataSaida) {
+
+        if(dataSaida == null) {
+            throw new IllegalArgumentException("Data inválida!");
+        }
+
+    }
+
+    public void validarProblema(String problema) {
+
+        if(problema == null) {
+            throw new IllegalArgumentException("Problema não pode ser nulo!");
+        }
+
+    }
+
+    public void validarDiagnostico(String diagnostico) {
+
+        if(diagnostico == null) {
+            throw new IllegalArgumentException("Diagnóstico não pode ser nulo!");
+        }
+
+    }
+
+    public void validarValor(Double valor) {
+
+        if(valor == null) {
+            throw new IllegalArgumentException("Valor não pode ser nulo!");
+        }
+
+        if(valor <= 0) {
+            throw new IllegalArgumentException("Valor inválido!");
+        }
+    }
+
+    public void validarStatus(StatusOrdem statusOrdem) {
+
+        if(statusOrdem == null) {
+            throw new IllegalArgumentException("Status não pode ser nulo!");
+        }
+
     }
 
     public Integer getId() {
@@ -45,6 +111,7 @@ public class OrdemServico implements Serializable {
     }
 
     public void setVeiculo(Veiculo veiculo) {
+        validarVeiculo(veiculo);
         this.veiculo = veiculo;
     }
 
@@ -53,6 +120,7 @@ public class OrdemServico implements Serializable {
     }
 
     public void setDataEntrada(LocalDate dataEntrada) {
+        validarDataEntrada(dataEntrada);
         this.dataEntrada = dataEntrada;
     }
 
@@ -61,6 +129,7 @@ public class OrdemServico implements Serializable {
     }
 
     public void setDataSaida(LocalDate dataSaida) {
+        validarDataSaida(dataSaida);
         this.dataSaida = dataSaida;
     }
 
@@ -69,6 +138,7 @@ public class OrdemServico implements Serializable {
     }
 
     public void setProblema(String problema) {
+        validarProblema(problema);
         this.problema = problema;
     }
 
@@ -77,6 +147,7 @@ public class OrdemServico implements Serializable {
     }
 
     public void setDiagnostico(String diagnostico) {
+        validarDiagnostico(diagnostico);
         this.diagnostico = diagnostico;
     }
 
@@ -85,6 +156,7 @@ public class OrdemServico implements Serializable {
     }
 
     public void setValor(Double valor) {
+        validarValor(valor);
         this.valor = valor;
     }
 
@@ -93,6 +165,7 @@ public class OrdemServico implements Serializable {
     }
 
     public void setStatusOrdem(StatusOrdem statusOrdem) {
+        validarStatus(statusOrdem);
         this.statusOrdem = statusOrdem;
     }
 
