@@ -104,11 +104,6 @@ public class ClienteMenu {
 
         Cliente cliente = service.buscarCliente(id);
 
-        if(cliente == null) {
-            System.out.println("Cliente não encontrado!");
-            return;
-        }
-
         System.out.print("Digite o nome do cliente: ");
         String nome = sc.nextLine();
         cliente.setNome(nome);
@@ -153,23 +148,13 @@ public class ClienteMenu {
 
         Cliente cliente = service.buscarCliente(id);
 
-        if(cliente == null) {
-            System.out.println("Cliente não existe!");
-        }
-        else {
-            System.out.println(cliente);
-        }
+        System.out.println(cliente);
 
     }
 
     private void listarClientes() {
 
         List<Cliente> list = service.buscarTodos();
-
-        if(list.isEmpty()) {
-            System.out.println("Lista vazia!");
-            return;
-        }
 
         for(Cliente cliente : list) {
             System.out.println(cliente);

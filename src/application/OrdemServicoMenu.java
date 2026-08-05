@@ -110,12 +110,6 @@ public class OrdemServicoMenu {
 
         Veiculo veiculo = serviceVeiculo.buscarVeiculo(id);
 
-        if(veiculo == null) {
-
-            System.out.println("Id inválido!");
-            return;
-        }
-
         System.out.print("Digite a data de entrada do veículo: ");
         LocalDate dataEntrada = LocalDate.parse(sc.next(), dtf);
 
@@ -151,12 +145,6 @@ public class OrdemServicoMenu {
         sc.nextLine();
 
        OrdemServico ordemServico = service.buscarOrdemServico(id);
-
-        if(ordemServico == null) {
-
-            System.out.println("Id inválido!");
-            return;
-        }
 
         System.out.print("Digite a data de entrada do veículo: ");
         LocalDate dataEntrada = LocalDate.parse(sc.next(), dtf);
@@ -194,13 +182,6 @@ public class OrdemServicoMenu {
         System.out.print("Digite o id da ordem de serviço que deseja apagar: ");
         int id = sc.nextInt();
 
-        OrdemServico ordemServico = service.buscarOrdemServico(id);
-
-        if(ordemServico == null) {
-            System.out.println("Id inválido!");
-            return;
-        }
-
         service.deletarOrdemServico(id);
 
         System.out.println("Ordem apagada com sucesso!");
@@ -215,11 +196,6 @@ public class OrdemServicoMenu {
 
         OrdemServico ordemServico = service.buscarOrdemServico(id);
 
-        if(ordemServico == null) {
-            System.out.println("Id inválido!");
-            return;
-        }
-
         System.out.println(ordemServico);
 
     }
@@ -232,17 +208,7 @@ public class OrdemServicoMenu {
 
         Veiculo veiculo = serviceVeiculo.buscarVeiculo(id);
 
-        if(veiculo == null) {
-            System.out.println("Id inválido!");
-            return;
-        }
-
         List<OrdemServico> list = service.buscarOrdemPorVeiculo(veiculo);
-
-        if(list.isEmpty()) {
-            System.out.println("Lista vazia!");
-            return;
-        }
 
         for(OrdemServico ordemServico : list) {
             System.out.println(ordemServico);
@@ -258,16 +224,7 @@ public class OrdemServicoMenu {
 
         Cliente cliente = serviceCliente.buscarCliente(id);
 
-        if(cliente == null) {
-            System.out.println("Id inválido!");
-            return;
-        }
-
         List<OrdemServico> list = service.buscarOrdemPorCliente(cliente);
-
-        if(list.isEmpty()) {
-            System.out.println("Lista vazia!");
-        }
 
         for(OrdemServico ordemServico : list) {
             System.out.println(ordemServico);
@@ -281,17 +238,7 @@ public class OrdemServicoMenu {
         System.out.print("Digite o status que deseja buscar: ");
         StatusOrdem statusOrdem = StatusOrdem.valueOf(sc.next().trim().toUpperCase());
 
-        if(statusOrdem == null) {
-            System.out.println("Status inválido!");
-            return;
-        }
-
         List<OrdemServico> list = service.buscarOrdemPorStatus(statusOrdem);
-
-        if(list.isEmpty()) {
-            System.out.println("Lista vazia!");
-            return;
-        }
 
         for(OrdemServico ordemServico : list) {
             System.out.println(ordemServico);
@@ -304,11 +251,6 @@ public class OrdemServicoMenu {
         System.out.println("LISTANDO TODAS AS ORDENS: ");
 
         List<OrdemServico> list = service.buscarTodos();
-
-        if(list.isEmpty()) {
-            System.out.println("Lista vazia!");
-            return;
-        }
 
         for(OrdemServico ordemServico : list) {
             System.out.println(ordemServico);

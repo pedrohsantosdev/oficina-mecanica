@@ -17,6 +17,10 @@ public class VeiculoService {
             throw new IllegalArgumentException("Veículo não pode ser nulo!");
         }
 
+        if(veiculo.getCliente() == null) {
+            throw new IllegalArgumentException("Cliente inválido!");
+        }
+
         veiculoDao.insert(veiculo);
     }
 

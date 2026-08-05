@@ -100,11 +100,6 @@ public class VeiculoMenu {
 
         Cliente cliente = serviceCliente.buscarCliente(id);
 
-        if(cliente == null) {
-            System.out.println("Id inválido!");
-            return;
-        }
-
         System.out.print("Digite a placa do veículo: ");
         String placa = sc.nextLine();
         System.out.print("Entre com a marca: ");
@@ -118,6 +113,7 @@ public class VeiculoMenu {
         String cor = sc.nextLine();
         System.out.print("Entre com a quilometragem rodada pelo veículo: ");
         int quilometragem = sc.nextInt();
+        sc.nextLine();
 
         Veiculo veiculo = new Veiculo(null, cliente, placa, marca, modelo, ano, cor, quilometragem);
 
@@ -136,11 +132,6 @@ public class VeiculoMenu {
         sc.nextLine();
 
         Veiculo veiculo = service.buscarVeiculo(id);
-
-        if(veiculo == null) {
-            System.out.println("Id inválido!");
-            return;
-        }
 
         System.out.print("Digite a placa do veículo: ");
         String placa = sc.nextLine();
@@ -176,13 +167,6 @@ public class VeiculoMenu {
         int id = sc.nextInt();
         sc.nextLine();
 
-        Veiculo veiculo = service.buscarVeiculo(id);
-
-        if(veiculo == null) {
-            System.out.println("Id inválido!");
-            return;
-        }
-
         service.deletarVeiculo(id);
 
         System.out.println("Veículo deletado com sucesso!");
@@ -197,11 +181,6 @@ public class VeiculoMenu {
 
         Veiculo veiculo = service.buscarVeiculo(id);
 
-        if(veiculo == null) {
-            System.out.println("Veículo inválido!");
-            return;
-        }
-
         System.out.println(veiculo);
 
     }
@@ -213,11 +192,6 @@ public class VeiculoMenu {
         String placa = sc.nextLine();
 
         Veiculo veiculo = service.buscarPlaca(placa);
-
-        if(veiculo == null) {
-            System.out.println("Placa inválida!");
-            return;
-        }
 
         System.out.println(veiculo);
 
@@ -232,17 +206,7 @@ public class VeiculoMenu {
 
         Cliente cliente = serviceCliente.buscarCliente(id);
 
-        if(cliente == null) {
-            System.out.println("Id inválido!");
-            return;
-        }
-
         List<Veiculo> list = service.buscarVeiculosPorCliente(cliente);
-
-        if(list.isEmpty()) {
-            System.out.println("Lista vazia!");
-            return;
-        }
 
         System.out.println("Veículos do propietário: ");
 
@@ -257,11 +221,6 @@ public class VeiculoMenu {
         System.out.println("BUSCANDO TODOS OS VEÍCULOS CADASTRADOS: ");
 
         List<Veiculo> list = service.buscarTodos();
-
-        if(list.isEmpty()) {
-            System.out.println("Lista vazia!");
-            return;
-        }
 
         for(Veiculo veiculo : list) {
             System.out.println(veiculo);
