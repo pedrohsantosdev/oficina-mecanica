@@ -133,11 +133,20 @@ public class Cliente implements Serializable {
 
     @Override
     public String toString() {
-        return "Cliente - " +
-                "Id: " + id + " | " +
-                "Nome: " + nome + " | " +
-                "Cpf: " + cpf + " | " +
-                "Telefone: " + telefone + " | " +
-                "Email: " + email;
+        return """
+            ================ CLIENTE ================
+            Id: %d
+            Nome: %s
+            CPF: %s
+            Telefone: %s
+            E-mail: %s
+            =========================================
+            """.formatted(
+                id,
+                nome,
+                cpf,
+                telefone,
+                email
+        );
     }
 }

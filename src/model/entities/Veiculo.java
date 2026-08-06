@@ -192,14 +192,26 @@ public class Veiculo implements Serializable {
 
     @Override
     public String toString() {
-        return "Veiculo - " +
-                "Id: " + id + " | " +
-                "Cliente: " + cliente.getNome() + " | " +
-                "Placa: " + placa + " | " +
-                "Marca: " + marca + " | " +
-                "Modelo: " + modelo + " | " +
-                "Ano: " + ano + " | " +
-                "Cor: " + cor + " | " +
-                "Quilometragem: " + quilometragem;
+        return """
+            ================= VEÍCULO =================
+            Id: %d
+            Cliente: %s
+            Placa: %s
+            Marca: %s
+            Modelo: %s
+            Ano: %d
+            Cor: %s
+            Quilometragem: %.0f km
+            ==========================================
+            """.formatted(
+                id,
+                cliente.getNome(),
+                placa,
+                marca,
+                modelo,
+                ano,
+                cor,
+                quilometragem
+        );
     }
 }

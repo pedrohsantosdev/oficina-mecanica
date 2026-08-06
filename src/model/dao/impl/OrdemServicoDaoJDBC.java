@@ -308,16 +308,26 @@ public class OrdemServicoDaoJDBC implements OrdemServicoDao {
             rs = st.executeQuery();
 
             List<OrdemServico> list = new ArrayList<>();
-
-            Cliente c = null;
-            Veiculo v = null;
+            Map<Integer, Veiculo> veiculos = new HashMap<>();
+            Map<Integer, Cliente> clientes = new HashMap<>();
 
             while (rs.next()) {
 
-                if(v == null) {
+                Cliente c = clientes.get(rs.getInt("ClienteId"));
+
+                if(c == null) {
 
                     c = instanciarCliente(rs);
+                    clientes.put(rs.getInt("ClienteId"), c);
+
+                }
+
+                Veiculo v = veiculos.get(rs.getInt("VeiculoId"));
+
+                if(v == null) {
+
                     v = instanciarVeiculo(rs, c);
+                    veiculos.put(rs.getInt("VeiculoId"), v);
 
                 }
 
@@ -350,7 +360,8 @@ public class OrdemServicoDaoJDBC implements OrdemServicoDao {
                             "v.cor, v.quilometragem, c.id AS ClienteId, c.nome, c.cpf, c.telefone, c.email " +
                             "FROM ordem_servico o " +
                             "INNER JOIN veiculo v ON o.veiculo_id = v.id " +
-                            "INNER JOIN cliente c ON v.cliente_id = c.id "
+                            "INNER JOIN cliente c ON v.cliente_id = c.id " +
+                            "ORDER BY o.id"
             );
 
             rs = st.executeQuery();

@@ -43,7 +43,7 @@ public class OrdemServicoMenu {
             System.out.println("[4] Buscar ordem de serviço");
             System.out.println("[5] Buscar ordens de um veículo");
             System.out.println("[6] Buscar ordens de um cliente");
-            System.out.println("[7] Buscar ordens por status");
+            System.out.println("[7] Buscar ordens por status (Aberto | Ativo | Concluido | Cancelado)");
             System.out.println("[8] Listar todas as ordens");
             System.out.println("[0] Sair");
             System.out.println();

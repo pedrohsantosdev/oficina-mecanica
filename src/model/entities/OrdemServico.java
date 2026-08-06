@@ -183,15 +183,28 @@ public class OrdemServico implements Serializable {
 
     @Override
     public String toString() {
-        return "OrdemServico - " +
-                "Id: " + id + " | " +
-                "Cliente: " + veiculo.getCliente().getNome() + " | " +
-                "Veiculo: " + veiculo.getPlaca() + " | " +
-                "Data Entrada: " + dataEntrada.format(dtf) + " | " +
-                "Data Saida: " + dataSaida.format(dtf) + " | " + "\n" +
-                "Problema: " + problema + " | " +
-                "Diagnostico: " + diagnostico + " | " +
-                "Valor: " + valor + " | " +
-                "Status Ordem: " + statusOrdem;
+        return """
+            ================= ORDEM DE SERVIÇO =================
+            Id: %d
+            Cliente: %s
+            Veículo: %s
+            Data de entrada: %s
+            Data de saída: %s
+            Problema: %s
+            Diagnóstico: %s
+            Valor: R$ %.2f
+            Status: %s
+            ===================================================
+            """.formatted(
+                id,
+                veiculo.getCliente().getNome(),
+                veiculo.getPlaca(),
+                dataEntrada.format(dtf),
+                dataSaida.format(dtf),
+                problema,
+                diagnostico,
+                valor,
+                statusOrdem
+        );
     }
 }
