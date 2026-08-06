@@ -1,5 +1,7 @@
 package model.entities;
 
+import model.enums.StatusOrdem;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

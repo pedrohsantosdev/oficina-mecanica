@@ -2,13 +2,12 @@ package application;
 
 import model.entities.Cliente;
 import model.entities.OrdemServico;
-import model.entities.StatusOrdem;
+import model.enums.StatusOrdem;
 import model.entities.Veiculo;
 import model.services.ClienteService;
 import model.services.OrdemServicoService;
 import model.services.VeiculoService;
 
-import java.sql.SQLOutput;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.InputMismatchException;

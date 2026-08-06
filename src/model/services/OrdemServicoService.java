@@ -4,7 +4,7 @@ import model.dao.DaoFactory;
 import model.dao.OrdemServicoDao;
 import model.entities.Cliente;
 import model.entities.OrdemServico;
-import model.entities.StatusOrdem;
+import model.enums.StatusOrdem;
 import model.entities.Veiculo;
 
 import java.util.List;

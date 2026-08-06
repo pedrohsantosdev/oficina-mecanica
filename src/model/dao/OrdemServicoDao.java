@@ -3,7 +3,7 @@ package model.dao;
 import model.entities.Cliente;
 import model.entities.OrdemServico;
 import model.entities.Veiculo;
-import model.entities.StatusOrdem;
+import model.enums.StatusOrdem;
 
 import java.util.List;
 
