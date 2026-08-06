@@ -8,6 +8,7 @@ import model.services.ClienteService;
 import model.services.OrdemServicoService;
 import model.services.VeiculoService;
 
+import java.sql.SQLOutput;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.InputMismatchException;
@@ -32,21 +33,26 @@ public class OrdemServicoMenu {
 
         do {
 
-            System.out.println("=== MENU DE ORDENS DE SERVIÇOS ===");
+            System.out.println("==========================================");
+            System.out.println("        MENU DE ORDENS DE SERVIÇOS        ");
+            System.out.println("==========================================");
             System.out.println();
-            System.out.println("1 - Abrir ordem");
-            System.out.println("2 - Atualizar ordem");
-            System.out.println("3 - Excluir ordem de serviço");
-            System.out.println("4 - Buscar ordem de serviço");
-            System.out.println("5 - Buscar ordens de um veículo");
-            System.out.println("6 - Buscar ordens de um cliente");
-            System.out.println("7 - Buscar ordens por status");
-            System.out.println("8 - Listar todas as ordens");
-            System.out.println("0 - Fechar programa");
+            System.out.println("[1] Abrir ordem de serviço");
+            System.out.println("[2] Atualizar ordem de serviço");
+            System.out.println("[3] Excluir ordem de serviço");
+            System.out.println("[4] Buscar ordem de serviço");
+            System.out.println("[5] Buscar ordens de um veículo");
+            System.out.println("[6] Buscar ordens de um cliente");
+            System.out.println("[7] Buscar ordens por status");
+            System.out.println("[8] Listar todas as ordens");
+            System.out.println("[0] Sair");
+            System.out.println();
+            System.out.println("------------------------------------------");
             System.out.println();
 
             try {
 
+                System.out.println("Escolha uma opção: ");
                 opcao = sc.nextInt();
                 sc.nextLine();
 
@@ -115,6 +121,7 @@ public class OrdemServicoMenu {
 
         System.out.print("Digite a data de saída: ");
         LocalDate dataSaida = LocalDate.parse(sc.next(), dtf);
+        sc.nextLine();
 
         System.out.print("Descreva o problema do veículo apresentado: ");
         String problema = sc.nextLine();
@@ -124,6 +131,7 @@ public class OrdemServicoMenu {
 
         System.out.print("Digite o valor do conserto do veículo: ");
         double valor = sc.nextDouble();
+        sc.nextLine();
 
         System.out.print("Entre com o status da ordem de serviço: ");
         StatusOrdem status = StatusOrdem.valueOf(sc.next().trim().toUpperCase());
@@ -152,6 +160,7 @@ public class OrdemServicoMenu {
 
         System.out.print("Digite a data de saída: ");
         LocalDate dataSaida = LocalDate.parse(sc.next(), dtf);
+        sc.nextLine();
         ordemServico.setDataSaida(dataSaida);
 
         System.out.print("Descreva o problema do veículo apresentado: ");
@@ -164,6 +173,7 @@ public class OrdemServicoMenu {
 
         System.out.print("Digite o valor do conserto do veículo: ");
         double valor = sc.nextDouble();
+        sc.nextLine();
         ordemServico.setValor(valor);
 
         System.out.print("Entre com o status da ordem de serviço: ");

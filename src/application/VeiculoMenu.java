@@ -25,16 +25,20 @@ public class VeiculoMenu {
 
         do {
 
-            System.out.println("=== MENU DE VEÍCULOS ===");
+            System.out.println("==========================================");
+            System.out.println("        MENU DE VEÍCULOS                  ");
+            System.out.println("==========================================");
             System.out.println();
-            System.out.println("1 - Cadastrar veículo");
-            System.out.println("2 - Atualizar cadastro");
-            System.out.println("3 - Excluir cadastro");
-            System.out.println("4 - Buscar por id");
-            System.out.println("5 - Buscar por placa");
-            System.out.println("6 - Buscar por cliente");
-            System.out.println("7 - Listar todos");
-            System.out.println("0 - Fechar programa");
+            System.out.println("[1] Cadastrar veículo");
+            System.out.println("[2] Atualizar cadastro");
+            System.out.println("[3] Excluir cadastro");
+            System.out.println("[4] Buscar por id");
+            System.out.println("[5] Buscar por placa");
+            System.out.println("[6] Buscar por cliente");
+            System.out.println("[7] Listar todos");
+            System.out.println("[0] Sair");
+            System.out.println();
+            System.out.println("------------------------------------------");
             System.out.println();
 
             try {

@@ -21,16 +21,18 @@ public class ClienteMenu {
         int opcao = -1;
 
         do {
-
-            System.out.println("=== MENU DO CLIENTE ===");
+            System.out.println("==========================================");
+            System.out.println("        MENU DO CLIENTE          ");
+            System.out.println("==========================================");
             System.out.println();
-            System.out.println("1 - Cadastrar");
-            System.out.println("2 - Alterar cadastro");
-            System.out.println("3 - Excluir cadastro");
-            System.out.println("4 - Buscar cliente por id");
-            System.out.println("5 - Listar todos os clientes cadastrados");
-            System.out.println("0 - Fechar menu");
+            System.out.println("[1] Cadastrar");
+            System.out.println("[2] Alterar cadastro");
+            System.out.println("[3] Excluir cadastro");
+            System.out.println("[4] Buscar cliente por id");
+            System.out.println("[5] Listar todos os clientes cadastrados");
+            System.out.println("[0] Sair");
             System.out.println();
+            System.out.println("------------------------------------------");
 
             try {
 

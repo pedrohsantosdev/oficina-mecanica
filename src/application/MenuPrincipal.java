@@ -16,13 +16,16 @@ public class MenuPrincipal {
 
        do {
 
-           System.out.println("=== MENU PRINCIPAL ===");
+           System.out.println("==========================================");
+           System.out.println("        SISTEMA OFICINA MECÂNICA          ");
+           System.out.println("==========================================");
            System.out.println();
-           System.out.println("1 - Exibir menu de clientes");
-           System.out.println("2 - Exibir menu de veículos");
-           System.out.println("3 - Exibir menu de ordens de serviços");
-           System.out.println("0 - Fechar programa");
+           System.out.println("[1] Clientes");
+           System.out.println("[2] Veículos");
+           System.out.println("[3] Ordens de Serviço");
+           System.out.println("[0] Sair");
            System.out.println();
+           System.out.println("------------------------------------------");
 
            try {
 
